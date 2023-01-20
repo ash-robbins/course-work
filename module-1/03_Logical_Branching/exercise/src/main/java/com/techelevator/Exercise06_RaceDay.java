@@ -58,47 +58,49 @@ public class Exercise06_RaceDay {
     public int getBibNumber(int age, int registrationNumber, boolean isEarlyRegistration) {
         if (age >= 18 && isEarlyRegistration) {
             return registrationNumber + 1000;
-        } if (!isEarlyRegistration) {
-                return registrationNumber;
-            } else {
-                return registrationNumber;
-
-            }
         }
+        if (!isEarlyRegistration) {
+            return registrationNumber;
+        } else {
+            return registrationNumber;
 
-
-
-
-
-            /*
-             * As the race approaches full capacity, organizers need to adjust the bib
-             * numbering system.
-             *
-             * Given a participant's age (int), their registration number (int), and
-             * whether they registered early (boolean), return their race bib number (int).
-             * Apply the same rules as above with one exception. If a runner did not
-             * register early and their registration number is > 1000, return -1 to indicate
-             * that there are no more spots left.
-             *
-             * getConfirmedBibNumber(17, 500, false) ➔ 500
-             * getConfirmedBibNumber(17, 500, true) ➔ 500
-             * getConfirmedBibNumber(18, 600, false) ➔ 600
-             * getConfirmedBibNumber(18, 600, true) ➔ 1600
-             * getConfirmedBibNumber(30, 700, false) ➔ 700
-             * getConfirmedBibNumber(30, 700, true) ➔ 1700
-             * getConfirmedBibNumber(30, 1001, false) ➔ -1
-             * getConfirmedBibNumber(30, 1001, true) ➔ 2001
-             */
-            public int getConfirmedBibNumber ( int age, int registrationNumber, boolean isEarlyRegistration){
-                if (age >= 18 && isEarlyRegistration) {
-                    return registrationNumber + 1000;
-                } if (!isEarlyRegistration) {
-                    return registrationNumber;
-                } else {
-                    return registrationNumber;
-
-                }
-
-            }
-
+        }
     }
+
+
+    /*
+     * As the race approaches full capacity, organizers need to adjust the bib
+     * numbering system.
+     *
+     * Given a participant's age (int), their registration number (int), and
+     * whether they registered early (boolean), return their race bib number (int).
+     * Apply the same rules as above with one exception. If a runner did not
+     * register early and their registration number is > 1000, return -1 to indicate
+     * that there are no more spots left.
+     *
+     * getConfirmedBibNumber(17, 500, false) ➔ 500
+     * getConfirmedBibNumber(17, 500, true) ➔ 500
+     * getConfirmedBibNumber(18, 600, false) ➔ 600
+     * getConfirmedBibNumber(18, 600, true) ➔ 1600
+     * getConfirmedBibNumber(30, 700, false) ➔ 700
+     * getConfirmedBibNumber(30, 700, true) ➔ 1700
+     * getConfirmedBibNumber(30, 1001, false) ➔ -1
+     * getConfirmedBibNumber(30, 1001, true) ➔ 2001
+     */
+    public int getConfirmedBibNumber(int age, int registrationNumber, boolean isEarlyRegistration) {
+        if (age >= 18 && isEarlyRegistration) {
+            return registrationNumber + 1000;
+        }
+        else if (!isEarlyRegistration && registrationNumber > 1000) {
+            return -1;
+        } else {
+            return registrationNumber;
+
+        }
+    }
+
+
+
+}
+
+

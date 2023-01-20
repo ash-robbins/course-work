@@ -32,7 +32,7 @@ public class Exercise07_StoreHours {
     isStoreOpen(22) ➔ false
      */
     public boolean isStoreOpen(int currentHour) {
-        if (currentHour >= 8 && currentHour < 17){
+        if (currentHour >= 8 && currentHour < 17) {
             return true;
         } else {
             return false;
@@ -58,8 +58,12 @@ public class Exercise07_StoreHours {
     isStoreOpen(12, 'S') ➔ false
      */
     public boolean isStoreOpen(int currentHour, char currentDay) {
-        if ()
-        return false;
+        if ((currentHour >= 8 && currentHour < 17) && (currentDay == 'M' || currentDay == 'W' || currentDay == 'F')) {
+            return true;
+        } else {
+
+            return false;
+        }
     }
 
 
@@ -77,6 +81,17 @@ public class Exercise07_StoreHours {
     isStoreOpen(9, 'S', true) ➔ true
      */
     public boolean isStoreOpen(int currentHour, char currentDay, boolean isSummer) {
-        return false;
+        if ((isSummer) && (currentDay == 'W') && (8 <= currentHour && currentHour < 20)) {
+            return true;
+        } else if ((isSummer && currentDay == 'S') && (9 <= currentHour && currentHour < 15)) {
+            return true;
+        } else if ((currentHour >= 8 && currentHour < 17) && (currentDay == 'M' || currentDay == 'W' || currentDay == 'F')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
+
+
+
