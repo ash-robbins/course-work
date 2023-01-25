@@ -14,6 +14,9 @@ public class TempConvert {
 		System.out.println("Is the temperature in (C)elsius, or (F)ahrenheit?");
 		String tempToBeConverted = input.nextLine();
 
+		input.close();
+
+
 		if (tempToBeConverted.equals("F")){
 			int newTemp = (int)((originalTemp- 32) / 1.8);
 			System.out.println(originalTemp + "F" + " is " + newTemp + "C.");

@@ -14,6 +14,8 @@ public class Lecture {
 		 * is not the case for most classes */
 
 		/* create an new instance of String using a literal */
+		String greeting = "Hello, World!"; // using literal
+		System.out.println("greeting : " + greeting);
 
 		
 		System.out.println();
@@ -35,6 +37,26 @@ public class Lecture {
 		 * toUpperCase
 		 * trim
 		 */
+
+		System.out.println("***** charAt *****");
+		String  name = "Bart";
+		char firstLetter = name.charAt(0);
+		char thirdLetter = name.charAt(2);
+		System.out.println(name);
+		System.out.println(firstLetter);
+		System.out.println(thirdLetter);
+
+
+		System.out.println("***** contains *****");
+		String hello = "Hello World!";
+		System.out.println("hello: " + hello);
+		boolean hasHello = hello .contains("Hello");
+		System.out.println("hasHello : " + hasHello);
+		boolean hasBogus = hello.contains("bogus");
+		System.out.println("hasBougus:" + hasBogus);
+
+
+
 
 		System.out.println();
 		System.out.println("**********************");

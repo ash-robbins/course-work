@@ -14,6 +14,8 @@ public class LinearConvert {
 		System.out.println("Is the measurement in (m)eter, or (f)eet?");
 		String measurementToBeConverted = input.nextLine();
 
+		input.close();
+
 		if (measurementToBeConverted.equals("f")) {
 			int newMeasurement = (int) (originalMeasurement * 0.3048);
 			System.out.println(originalMeasurement + "f" + " is " + newMeasurement + "m.");
