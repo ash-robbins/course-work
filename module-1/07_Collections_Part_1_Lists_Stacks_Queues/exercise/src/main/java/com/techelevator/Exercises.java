@@ -1,7 +1,9 @@
 package com.techelevator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.IntToDoubleFunction;
 
 public class Exercises {
 
@@ -16,12 +18,15 @@ public class Exercises {
 	 array2List( {"Left", "Right", "Forward", "Back"} )  ->  ["Left", "Right", "Forward", "Back"]
 	 */
 	public List<String> array2List(String[] stringArray) {
-		List<String> stringList = new ArrayList<>();
-		for (int i = 0; i < stringArray.length; i++){
-			stringList.add(stringArray[i]);
+		List<String> newList = new ArrayList<String>();
+
+		for (int i =0; i < stringArray.length; i++){
+			newList.add(stringArray[i]);
+		} return newList;
+
 		}
-		return stringList;
-	}
+
+
 
 	/*
 	 Given a list of Strings, return an array containing the same Strings in the same order
@@ -30,8 +35,13 @@ public class Exercises {
 	 list2Array( ["Left", "Right", "Forward", "Back"] )  ->  {"Left", "Right", "Forward", "Back"}
 	 */
 	public String[] list2Array(List<String> stringList) {
-		return null;
+		String[] newArray = new String[stringList.size()];
+		for(String text : stringList){
+			stringList.toArray(newArray);
+		}
+		return newArray;
 	}
+
 
 	/*
 	 Given an array of Strings, return an ArrayList containing the same Strings in the same order
@@ -41,7 +51,12 @@ public class Exercises {
 	 no4LetterWords( {"Jack", "Jill", "Jane", "John", "Jim"} )  ->  ["Jim"]
 	 */
 	public List<String> no4LetterWords(String[] stringArray) {
-		return null;
+		List<String> except4LetterWords = new ArrayList<String>();
+		for (int i = 0; i < stringArray.length; i++) {
+			if (stringArray[i].length() != 4) {
+				except4LetterWords.add(stringArray[i]);
+			}
+		} return except4LetterWords;
 	}
 
 	/*
@@ -51,9 +66,16 @@ public class Exercises {
 	 arrayInt2ListDouble( {84, 99, 3285, 13, 877} ) -> [42, 49.5, 1642.5, 6.5, 438.5]
 	 */
 	public List<Double> arrayInt2ListDouble(int[] intArray) {
-		return null;
-	}
+		Double[] newArray = new Double[intArray.length];
+		List<Double> numbersDividedByTwo = new ArrayList<Double>();
+		List<Double> finalAnswer = new ArrayList<Double>();
+		for (int i = 0; i < intArray.length; i++) {
+			newArray[i] = Double.valueOf(intArray[i]);
+			numbersDividedByTwo.add((newArray[i] / 2));
+		}
+			return numbersDividedByTwo;
 
+	}
 	/*
 	 Given a List of Integers, return the largest value.
 	 findLargest( [11, 200, 43, 84, 9917, 4321, 1, 33333, 8997] ) -> 33333
@@ -61,7 +83,12 @@ public class Exercises {
 	 findLargest( [34070, 1380, 81238, 7782, 234, 64362, 627] ) -> 81238
 	 */
 	public Integer findLargest(List<Integer> integerList) {
-		return null;
+		int maxValue = 0;
+		for (int i = 1; i < integerList.size(); i++) {
+			if (integerList.get(i) > maxValue) {
+				maxValue = integerList.get(i);
+			}
+		} return maxValue;
 	}
 
 	/*
@@ -71,7 +98,14 @@ public class Exercises {
 	 oddOnly( {734, 233, 782, 811, 3, 9999} ) -> [233, 811, 3, 9999]
 	 */
 	public List<Integer> oddOnly(Integer[] integerArray) {
-		return null;
+		List<Integer> numbersDividedByTwo = new ArrayList<Integer>();
+
+		for(Integer number : integerArray){
+			if(number % 2 == 1){
+				numbersDividedByTwo.add(number);
+			}
+		}
+		return numbersDividedByTwo;
 	}
 
 	/*
@@ -82,7 +116,15 @@ public class Exercises {
 	 foundIntTwice( [9, 9, 44, 2, 88, 9], 9) -> true
 	 */
 	public boolean foundIntTwice(List<Integer> integerList, int intToFind) {
-		return false;
+		int count = 0;
+		for (Integer number : integerList) {
+			if (intToFind == number) {
+				count++;
+			} if (count > 1) {
+				return true;
+			}
+			//return false;
+		} return true;
 	}
 
 	/*
@@ -111,6 +153,8 @@ public class Exercises {
      interleaveLists( [1, 2, 5, 8, 10], [4, 5, 6] )  ->  [1, 4, 2, 5, 5, 6, 8, 10]
 	 */
 	public List<Integer> interleaveLists(List<Integer> listOne, List<Integer> listTwo) {
+		List<Integer> combinedNumbers = new ArrayList<Integer>();
+		//for (Integer numbers )
 		return null;
 	}
 
