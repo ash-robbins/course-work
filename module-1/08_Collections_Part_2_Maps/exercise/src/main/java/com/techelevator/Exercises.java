@@ -276,19 +276,21 @@ public class Exercises {
 			Integer quantity = inventoryCount.getValue();
 			String skuNumber = inventoryCount.getKey();
 			mergedInventory.put(skuNumber, quantity);
-		} for (Map.Entry<String, Integer> inventoryCount2 : remoteWarehouse.entrySet()) {
+		}
+		for (Map.Entry<String, Integer> inventoryCount2 : remoteWarehouse.entrySet()) {
 			Integer quantity2 = inventoryCount2.getValue();
 			String skuNumber2 = inventoryCount2.getKey();
 			mergedInventory.put(skuNumber2, quantity2);
 		}
-		for(Map.Entry<String, Integer> inventoryCount3 : mainWarehouse.entrySet()) {
+		for (Map.Entry<String, Integer> inventoryCount3 : mainWarehouse.entrySet()) {
 			Integer quantity3 = inventoryCount3.getValue();
 			String skuNumber3 = inventoryCount3.getKey();
-			if(skuNumber3.equals(skuNumber3)){
-			mergedInventory.put(skuNumber3), ((mergedInventory.get(skuNumber3) + quantity3));
-		}
-		return mergedInventory;
-		}
+			if (skuNumber3.equals(skuNumber3)) {
+				//mergedInventory.put(skuNumber3), ((mergedInventory.get(skuNumber3) + quantity3));
+			}
+			return null;
+		} return null;
+	}
 
 
 
