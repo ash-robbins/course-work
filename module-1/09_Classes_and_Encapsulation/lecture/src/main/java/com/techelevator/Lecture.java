@@ -8,5 +8,12 @@ public class Lecture {
         System.out.println("############################");
         System.out.println("Classes and Encapsulation");
         System.out.println("############################");
+
+
+
+        Dog dog1 = new Dog();
+        Dog dog2 = new Dog("Giselle", 8, "Cockapoo");
+
+        dog2.
     }
 }
