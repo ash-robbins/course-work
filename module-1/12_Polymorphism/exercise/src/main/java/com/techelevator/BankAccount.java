@@ -1,6 +1,6 @@
 package com.techelevator;
 
-public class BankAccount {
+public class BankAccount{
 
     private String accountHolderName;
     private String accountNumber;
@@ -39,5 +39,10 @@ public class BankAccount {
         balance = balance - amountToWithdraw;
         return balance;
     }
+
+    public int transferTo(BankAccount destinationAccount, int transferAmount){
+        this.balance = getBalance() - transferAmount;
+    }
+
 
 }
