@@ -12,8 +12,16 @@ public class SavingsAccount extends BankAccount {
 
 
     public int withdraw(int amountToWithdraw) {
-        return super.withdraw(amountToWithdraw);
-
-
+        if (getBalance() - amountToWithdraw >= 150) {
+            super.withdraw(amountToWithdraw);
+            if (getBalance() - amountToWithdraw < 150) {
+                super.withdraw(2);
+                if ((getBalance() - (amountToWithdraw + 2)) < 0){
+                    super.withdraw(0);
+                }
+            }
+        } return getBalance();
     }
 }
+
+
