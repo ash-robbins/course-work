@@ -1,6 +1,7 @@
 package com.techelevator;
 
-public class CheckingAccount extends BankAccount{
+public class CheckingAccount extends BankAccount {
+
 
     public CheckingAccount(String accountHolder, String accountNumber, int balance) {
         super(accountHolder, accountNumber, balance);
@@ -8,6 +9,11 @@ public class CheckingAccount extends BankAccount{
 
     public CheckingAccount(String accountHolder, String accountNumber) {
         super(accountHolder, accountNumber);
+    }
+
+    //added
+    public CheckingAccount(BankAccount destinationAccount){
+        super(destinationAccount);
     }
 
     @Override

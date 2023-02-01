@@ -10,6 +10,11 @@ public class SavingsAccount extends BankAccount {
         super(accountHolder, accountNumber);
     }
 
+    //added
+    public SavingsAccount(BankAccount destinationAccount){
+        super(destinationAccount);
+    }
+
     @Override
     public int withdraw(int amountToWithdraw) {
         // only perform transaction of positive $ and room for fee
