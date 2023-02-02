@@ -1,9 +1,8 @@
 package com.techelevator;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
-public class BankCustomer extends BankAccount implements Accountable {
+public class BankCustomer implements Accountable {
 
 
     private String name;
@@ -13,7 +12,8 @@ public class BankCustomer extends BankAccount implements Accountable {
 
 
     public BankCustomer(){
-        super("","", 0);
+
+        this.accounts = accounts;
     }
 
     public int getBalance(){
