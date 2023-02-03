@@ -59,20 +59,20 @@ class PaintCalculator {
                     System.out.println("Enter wall base >>> ");
                     int base = Integer.parseInt(userInput.nextLine());
 
-                    // Step Four:
-                    //newWall = new TriangleWall(name, color, base, height);
+                     //Step Four:
+                    newWall = new TriangleWall(name, color, base, height);
                 }
 
-                // Step Two:
-                //System.out.println("Added " + newWall + " wall - "
-                //        + newWall.getArea() + " square feet");
-                //walls.add(newWall);
+                 //Step Two:
+                System.out.println("Added " + newWall + " wall - "
+                        + newWall.getArea() + " square feet");
+                walls.add(newWall);
             } else if (userChoice.equals("2")) {
 
                 Map<String, Integer> colorChoiceAreas = new TreeMap<>();
 
                 int totalArea = 0;
-                // Step One:
+                 //Step One:
 //                for (int i = 0; i < walls.size(); i++) {
 //                    System.out.println(
 //                            String.format("Wall %d: %s - %d square ft", i + 1,
