@@ -23,4 +23,8 @@ public class TriangleWall extends Wall{
         int area = (base * height) / 2;
         return area;
     }
+
+    public String toString(){
+        return super.getName() + " (" + base + "x" + height + ") " + "triangle";
+    }
 }

@@ -12,14 +12,15 @@ public class SquareWall extends Wall {
         public int getSideLength(){
             return this.sideLength;
         }
-        public String toString(){
-            return getName() + getArea() + "square";
-        }
 
     public int getArea(){
         int area = sideLength * sideLength;
         return area;
     }
+    public String toString(){
+        return super.getName() + " (" + sideLength + "x" + sideLength + ") " + "square";
+    }
+
     }
 
 
