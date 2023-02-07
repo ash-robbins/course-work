@@ -36,7 +36,7 @@ public class Lucky13Test {
     }
 
     @Test
-    public void ProvideAtLeastOneOneOneThree_ExpectNoOnesAndNoTwos() {
+    public void ProvideAtLeastOneOneOneThree_ExpectNoOnesAndNoThree() {
         //Arrange
         Lucky13 lucky13 = new Lucky13();
         int[] numbers = {0, 2, 3};

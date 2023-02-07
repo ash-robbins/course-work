@@ -36,7 +36,7 @@ public class AnimalGroupNameTest {
     }
 
     @Test
-    public void ProvideUnknownAnimalName_ExpectUknownHerdName() {
+    public void ProvideUnknownAnimalName_ExpectUnknownHerdName() {
         //Arrange
         AnimalGroupName animalGroupName = new AnimalGroupName();
         String animalNameEmptyString = "";

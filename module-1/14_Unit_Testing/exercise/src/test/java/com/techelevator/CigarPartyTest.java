@@ -7,7 +7,7 @@ public class CigarPartyTest {
 
     @Test
 
-    public void ProvideNumberOfCigars_ExpectSuccessfulParty() {
+    public void ProvideNumberOfCigars_OnWeekend_ExpectedSuccessfulParty() {
         //Arrange
         CigarParty numberOfCigars = new CigarParty();
         boolean isWeekend = true;
@@ -24,11 +24,11 @@ public class CigarPartyTest {
 
     @Test
 
-    public void ProvideNumberOfCigars_Mixed_ExpectSuccessfulParty() {
+    public void ProvideNumberOfCigars_OverMaximum_SuccessfulParty() {
         //Arrange
         CigarParty numberOfCigars = new CigarParty();
         boolean isWeekend = false;
-        int cigars = 39;
+        int cigars = 62;
         boolean expectedSuccess = false;
 
         // Act
@@ -40,18 +40,19 @@ public class CigarPartyTest {
 
     @Test
 
-    public void ProvideNumberOfCigars_High_ExpectSuccessfulParty() {
+    public void ProvideNumberOfCigarsBelowMinimum_OnWeekend_ExpectedUnSuccessfulParty() {
         //Arrange
         CigarParty numberOfCigars = new CigarParty();
         boolean isWeekend = true;
-        int cigars = 70;
-        boolean expectedSuccess = true;
+        int cigarsCount =33;
+        boolean expectedSuccess = false;
 
         // Act
-        boolean actualOutcome = numberOfCigars.haveParty(cigars, isWeekend);
+        boolean actualOutcome = numberOfCigars.haveParty(cigarsCount, isWeekend);
 
         //Assert
         Assert.assertEquals(expectedSuccess, actualOutcome);
+
 
 
     }
