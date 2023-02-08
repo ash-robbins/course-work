@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import java.io.File;
 import java.util.Scanner;
 
 public class FizzWriter {
@@ -15,7 +16,13 @@ public class FizzWriter {
 	public void run() {
 		/* Your code goes here */
 
+//		//Ask for destination file
+//		System.out.println("What is your destination file?");
+//		String inputDestinationFile = userInput.nextLine();
 
 	}
 
-}
+
+
+	}
+
