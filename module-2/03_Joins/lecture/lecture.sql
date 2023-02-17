@@ -1,18 +1,36 @@
 -- INNER JOIN
 
 -- Write a query to retrieve the name and state abbreviation for the 2 cities named "Columbus" in the database
-
+SELECT
+	city_name,
+	state_abbreviation
+FROM city
+WHERE city_name = 'Columbus';
 
 -- Modify the previous query to retrieve the names of the states (rather than their abbreviations).
-
+SELECT 
+	city.city_name,
+	state.state_name
+FROM city
+INNER JOIN state ON city.state_abbreviation = state.state_abbreviation
+WHERE city.city_name = 'Columbus';
 
 -- Write a query to retrieve the names of all the national parks with their state abbreviations.
 -- (Some parks will appear more than once in the results, because they cross state boundaries.)
-
+SELECT
+	p.park_name,
+	ps.state_abbreviation
+FROM park p
+JOIN park_state ps ON p.park_id = ps.park_id;
 
 -- The park_state table is an associative table that can be used to connect the park and state tables.
 -- Modify the previous query to retrieve the names of the states rather than their abbreviations.
-
+SELECT
+	p.park_name,
+	ps.state_abbreviation
+FROM park p
+JOIN park_state ps ON p.park_id = ps.park_id
+JOIN state s ON ps.state_abbreviation = s.state_abbreviation;
 
 -- Modify the previous query to include the name of the state's capital city.
 
@@ -33,10 +51,23 @@
 -- LEFT JOIN
 
 -- Write a query to retrieve the state name and the earliest date a park was established in that state (or territory) for every record in the state table that has park records associated with it.
+SELECT s.state_name,
+	MIN(p.date_established) AS earliest_park
+FROM 
+	state AS s
+LEFT JOIN park_state AS ps ON s.state_abbreviation = ps.state_abbreviation
+LEFT JOIN park AS p ON ps.park_id = p.park_id
+GROUP BY s.state_name;
 
 
 -- Modify the previous query so the results include entries for all the records in the state table, even if they have no park records associated with them.
-
+SELECT s.state_name,
+	MIN(p.date_established) AS earliest_park
+FROM 
+	state AS s
+JOIN park_state AS ps ON s.state_abbreviation = ps.state_abbreviation
+JOIN park AS p ON ps.park_id = p.park_id
+GROUP BY s.state_name;
 
 
 -- UNION
@@ -49,10 +80,15 @@
 
 
 -- MovieDB
--- After creating the MovieDB database and running the setup script, make sure it is selected in pgAdmin and confirm it is working correctly by writing queries to retrieve...
-
+--After creating the MovieDB database and running the setup script, make sure it is selected in pgAdmin and confirm it is working correctly by writing queries to retrieve...
+SELECT * FROM person;
 -- The names of all the movie genres
-
+SELECT genre_name
+FROM genre;
 
 -- The titles of all the Comedy movies
-
+SELECT m.title
+FROM movie AS m
+INNER JOIN movie_genre AS mg ON m.movie_id = mg.movie_id
+INNER JOIN genre AS g ON mg.genre_id = g.genre_id
+WHERE g.genre_name = 'Comedy';

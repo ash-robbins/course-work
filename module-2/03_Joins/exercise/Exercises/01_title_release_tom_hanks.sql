@@ -2,3 +2,11 @@
 -- Order the results by release date, newest to oldest.
 -- (47 rows)
 
+SELECT 
+	m.title,
+	m.release_date
+FROM movie m
+INNER JOIN movie_actor ma ON m.movie_id = ma.movie_id
+INNER JOIN person p ON ma.actor_id = p.person_id
+WHERE person_name = 'Tom Hanks'
+ORDER BY release_date DESC;
