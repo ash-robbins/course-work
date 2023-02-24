@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.techelevator.projects.model.Employee;
+import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 public class JdbcEmployeeDao implements EmployeeDao {
 
@@ -19,21 +20,45 @@ public class JdbcEmployeeDao implements EmployeeDao {
 	
 	@Override
 	public List<Employee> getAllEmployees() {
-		return new ArrayList<>();
+		List<Employee> employees = new ArrayList<>();
+		String sql = "SELECT * FROM employee;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		while (results.next()) {
+			employees.add(mapRowToEmployee(results));
+		}
+		return employees;
 	}
 
 	@Override
 	public List<Employee> searchEmployeesByName(String firstNameSearch, String lastNameSearch) {
-		return List.of(new Employee());
+		List<Employee> employees = new ArrayList<>();
+		String sql = "SELECT first_name, last_name " +
+				"FROM employee " +
+				"WHERE first_name ILIKE ? AND last_name ILIKE ? OR first_name ILIKE '%?%' AND last_name ILIKE '%?%';";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, firstNameSearch, lastNameSearch);
+		while (results.next()) {
+			employees.add(mapRowToEmployee(results));
+		}
+		return employees;
 	}
 
 	@Override
 	public List<Employee> getEmployeesByProjectId(int projectId) {
-		return new ArrayList<>();
+		List<Employee> employees = new ArrayList<>();
+		String sql = "SELECT employee_id FROM project_employee " +
+				"WHERE project_id = ?;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, projectId);
+		while (results.next()) {
+			employees.add(mapRowToEmployee(results));
+		}
+		return employees;
 	}
 
 	@Override
 	public void addEmployeeToProject(int projectId, int employeeId) {
+		String sql = "INSERT INTO project_employee (project_id, employee_id)" +
+				"VALUES (?, ?);";
+		Integer newId = jdbcTemplate.queryForObject(sql, Integer.class);
 	}
 
 	@Override
@@ -44,6 +69,18 @@ public class JdbcEmployeeDao implements EmployeeDao {
 	public List<Employee> getEmployeesWithoutProjects() {
 		return new ArrayList<>();
 	}
+
+	private Employee mapRowToEmployee(SqlRowSet rowSet) {
+		Employee employee = new Employee();
+		employee.setId(rowSet.getInt("employee_id"));
+		employee.setDepartmentId(rowSet.getInt("department_id"));
+		employee.setFirstName(rowSet.getString("first_name"));
+		employee.setLastName(rowSet.getString("last_name"));
+		employee.setBirthDate(rowSet.getDate("birth_date").toLocalDate());
+		employee.setHireDate(rowSet.getDate("hire_date").toLocalDate());
+		return employee;
+	}
+
 
 
 }

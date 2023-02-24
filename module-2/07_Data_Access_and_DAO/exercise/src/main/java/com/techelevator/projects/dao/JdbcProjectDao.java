@@ -20,12 +20,26 @@ public class JdbcProjectDao implements ProjectDao {
 
 	@Override
 	public Project getProject(int projectId) {
-		return new Project(0, "Not Implemented Yet", null, null);
+		Project project = null;
+		String sql = "SELECT project_id, name " +
+				"FROM project " +
+				"WHERE project_id = ?;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, projectId);
+		if (results.next()) {
+			project = mapRowToProject(results);
+		}
+		return project;
 	}
 
 	@Override
 	public List<Project> getAllProjects() {
-		return new ArrayList<>();
+		List<Project> projects = new ArrayList<>();
+		String sql = "SELECT * FROM project;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		while (results.next()) {
+			projects.add(mapRowToProject(results));
+		}
+		return projects;
 	}
 
 	@Override
@@ -35,7 +49,17 @@ public class JdbcProjectDao implements ProjectDao {
 
 	@Override
 	public void deleteProject(int projectId) {
+	String sql = "DELETE FROM project WHERE project_id = ?;";
+	jdbcTemplate.update(sql, projectId);
+	}
 
+	private Project mapRowToProject(SqlRowSet rowSet) {
+		Project project = new Project();
+		project.setId(rowSet.getInt("project_id"));
+		project.setName(rowSet.getString("name"));
+		project.setFromDate(rowSet.getDate("from_date").toLocalDate());
+		project.setToDate(rowSet.getDate("to_date").toLocalDate());
+		return project;
 	}
 	
 

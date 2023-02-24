@@ -27,7 +27,7 @@ public class JdbcCityDao implements CityDao {
             city = mapRowToCity(results);
         }
         return city;
-    }
+        }
 
     @Override
     public List<City> getCitiesByState(String stateAbbreviation) {
