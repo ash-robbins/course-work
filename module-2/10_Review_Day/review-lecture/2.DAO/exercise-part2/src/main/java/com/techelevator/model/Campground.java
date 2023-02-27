@@ -1,8 +1,9 @@
 package com.techelevator.model;
 
+import java.time.LocalDate;
+
 public class Campground {
 
 
 
-    //Override toString(), equals() and hashcode()
 }

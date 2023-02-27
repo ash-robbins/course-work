@@ -32,11 +32,14 @@ public class JdbcEmployeeDao implements EmployeeDao {
 	@Override
 	public List<Employee> searchEmployeesByName(String firstNameSearch, String lastNameSearch) {
 		List<Employee> employees = new ArrayList<>();
-		String sql = "SELECT first_name, last_name " +
-				"FROM employee " +
-				"WHERE first_name ILIKE ? AND last_name ILIKE ? OR first_name ILIKE '%?%' AND last_name ILIKE '%?%';";
-		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, firstNameSearch, lastNameSearch);
+//		String wildcards = "%";
+//		String searchWord = "?";
+//		String sql = "SELECT * FROM employee WHERE first_name ILIKE '" +
+//				searchWord + wildcards + "' OR last_name ILIKE '" + searchWord + wildcards + "';";
+		String sql = "SELECT * FROM employee WHERE first_name ILIKE ? AND last_name ILIKE ?;";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, "%" + firstNameSearch + "%", "%" + lastNameSearch + "%");
 		while (results.next()) {
+
 			employees.add(mapRowToEmployee(results));
 		}
 		return employees;
@@ -45,8 +48,10 @@ public class JdbcEmployeeDao implements EmployeeDao {
 	@Override
 	public List<Employee> getEmployeesByProjectId(int projectId) {
 		List<Employee> employees = new ArrayList<>();
-		String sql = "SELECT employee_id FROM project_employee " +
+		String sql = "SELECT * FROM employee e " +
+				"JOIN project_employee pe ON e.employee_id = pe.employee_id " +
 				"WHERE project_id = ?;";
+//
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sql, projectId);
 		while (results.next()) {
 			employees.add(mapRowToEmployee(results));
@@ -56,18 +61,34 @@ public class JdbcEmployeeDao implements EmployeeDao {
 
 	@Override
 	public void addEmployeeToProject(int projectId, int employeeId) {
-		String sql = "INSERT INTO project_employee (project_id, employee_id)" +
+//		List<Employee> employees = new ArrayList<>();
+		String sql = "INSERT INTO project_employee (project_id, employee_id) " +
 				"VALUES (?, ?);";
-		Integer newId = jdbcTemplate.queryForObject(sql, Integer.class);
+		jdbcTemplate.update(sql, projectId, employeeId);
+//		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+//		employees.add(mapRowToEmployee(results));
+
+
 	}
 
 	@Override
 	public void removeEmployeeFromProject(int projectId, int employeeId) {
+		String deleteProjectSql = "DELETE FROM project_employee WHERE employee_id = ?;";
+		jdbcTemplate.update(deleteProjectSql, employeeId);
+
 	}
 
 	@Override
 	public List<Employee> getEmployeesWithoutProjects() {
-		return new ArrayList<>();
+		List<Employee> employees = new ArrayList<>();
+		String sql = "SELECT * FROM employee " +
+				"WHERE employee_id NOT IN (SELECT employee_id FROM project_employee);";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+		if (results.next()) {
+			employees.add(mapRowToEmployee(results));
+		}
+
+		return employees;
 	}
 
 	private Employee mapRowToEmployee(SqlRowSet rowSet) {
@@ -76,8 +97,13 @@ public class JdbcEmployeeDao implements EmployeeDao {
 		employee.setDepartmentId(rowSet.getInt("department_id"));
 		employee.setFirstName(rowSet.getString("first_name"));
 		employee.setLastName(rowSet.getString("last_name"));
-		employee.setBirthDate(rowSet.getDate("birth_date").toLocalDate());
-		employee.setHireDate(rowSet.getDate("hire_date").toLocalDate());
+		if (rowSet.getDate("birth_date") != null) {
+			employee.setBirthDate(rowSet.getDate("birth_date").toLocalDate());
+		}
+		if (rowSet.getDate("hire_date") != null) {
+			employee.setHireDate(rowSet.getDate("hire_date").toLocalDate());
+		}
+
 		return employee;
 	}
 
