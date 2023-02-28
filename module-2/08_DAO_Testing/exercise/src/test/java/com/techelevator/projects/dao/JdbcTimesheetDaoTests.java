@@ -30,6 +30,7 @@ public class JdbcTimesheetDaoTests extends BaseDaoTests {
         testTimesheet = new Timesheet(50, 1, 1, LocalDate.now(), 5.5, true,"Test Timesheet 0");
     }
 
+//    @Test
     @Test
     public void getTimesheet_returns_correct_timesheet_for_id() {
         Timesheet timesheet = dao.getTimesheet(1);
@@ -103,7 +104,7 @@ public class JdbcTimesheetDaoTests extends BaseDaoTests {
         timesheetToUpdate.setEmployeeId(00);
         timesheetToUpdate.setProjectId(00);
         timesheetToUpdate.setDateWorked(LocalDate.now());
-        timesheetToUpdate.setHoursWorked(1);
+        timesheetToUpdate.setHoursWorked(200);
         timesheetToUpdate.setBillable(false);
         timesheetToUpdate.setDescription("Test Timesheet");
 

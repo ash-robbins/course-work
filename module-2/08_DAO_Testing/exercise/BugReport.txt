@@ -1,11 +1,11 @@
 Bug 1
 -----
 Test that demonstrates problem:
-
+updated_timesheet_has_expected_values_when_retrieved
 Expected output:
-
+0
 Actual output:
-
+1
 How did you fix this bug?
 
 

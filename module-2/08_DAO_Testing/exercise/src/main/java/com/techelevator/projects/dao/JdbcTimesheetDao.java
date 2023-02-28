@@ -33,7 +33,7 @@ public class JdbcTimesheetDao implements TimesheetDao {
     @Override
     public List<Timesheet> getTimesheetsByEmployeeId(int employeeId) {
         List<Timesheet> timesheets = new ArrayList<>();
-        String sql = "SELECT timesheet_id, employee_id, project_id, date_worked, hours_worked, billable, description " +
+        String sql = "SELECT timesheet_id" +
                      "FROM timesheet " +
                      "WHERE employee_id = ? " +
                      "ORDER BY timesheet_id;";
@@ -73,10 +73,10 @@ public class JdbcTimesheetDao implements TimesheetDao {
     @Override
     public void updateTimesheet(Timesheet updatedTimesheet) {
         String sql = "UPDATE timesheet " +
-                     "SET employee_id = ?, project_id = ?, date_worked = ?, hours_worked = ?, description = ? " +
+                     "SET employee_id = ?, project_id = ?, date_worked = ?, hours_worked = ?, billable = ?, description = ? " +
                      "WHERE timesheet_id = ?";
         jdbcTemplate.update(sql, updatedTimesheet.getEmployeeId(), updatedTimesheet.getProjectId(),
-                updatedTimesheet.getDateWorked(), updatedTimesheet.getHoursWorked(), updatedTimesheet.getDescription(),
+                updatedTimesheet.getDateWorked(), updatedTimesheet.getHoursWorked(), updatedTimesheet.isBillable(), updatedTimesheet.getDescription(),
                 updatedTimesheet.getTimesheetId());
     }
 
@@ -84,6 +84,10 @@ public class JdbcTimesheetDao implements TimesheetDao {
     public void deleteTimesheet(int timesheetId) {
         String sql = "DELETE FROM timesheet WHERE timesheet_id = ?";
         jdbcTemplate.update(sql, timesheetId);
+        sql = "DELETE FROM timesheet WHERE timesheet_id = ?";
+        jdbcTemplate.update(sql, timesheetId);
+
+
     }
 
     @Override
