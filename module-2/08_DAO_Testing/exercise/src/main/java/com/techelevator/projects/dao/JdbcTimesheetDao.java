@@ -22,6 +22,7 @@ public class JdbcTimesheetDao implements TimesheetDao {
         String sql = "SELECT timesheet_id, employee_id, project_id, date_worked, hours_worked, billable, description " +
                      "FROM timesheet " +
                      "WHERE timesheet_id = ?";
+//        String sql = "SELECT * FROM timesheet WHERE timesheet_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, timesheetId);
         if (results.next()) {
             timesheet = mapRowToTimesheet(results);
