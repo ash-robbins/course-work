@@ -31,7 +31,6 @@ public class App {
 //                handleFindAuctionsByTitle();
             } else if (menuSelection == 4) {
                 double inputPrice = consoleService.promptForAuctionPrice();
-                if (inputPrice > auction.)
                 consoleService.printAuctions(auctionService.getAuctionsAtOrBelowPrice(inputPrice));
 //                handleFindAuctionsByPrice();
             } else if (menuSelection != 0) {

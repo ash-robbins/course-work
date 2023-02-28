@@ -4,6 +4,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.techelevator.auctions.model.Auction;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AuctionService {
 
     public static String API_BASE_URL = "http://localhost:3000/auctions/";
@@ -26,8 +29,8 @@ public class AuctionService {
     }
 
     public Auction[] getAuctionsAtOrBelowPrice(double price) {
-        Auction[] auctions = restTemplate.getForObject(API_BASE_URL + "?currentBid_Ite=" + price, Auction[].class);
+        Auction[] auctions = restTemplate.getForObject(API_BASE_URL + "?currentBid_lte=" + price, Auction[].class);
         return auctions;
-    }
 
+    }
 }

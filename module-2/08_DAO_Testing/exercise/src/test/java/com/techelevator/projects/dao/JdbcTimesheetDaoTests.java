@@ -54,15 +54,15 @@ public class JdbcTimesheetDaoTests extends BaseDaoTests {
 
     @Test
     public void getTimesheetsByEmployeeId_returns_list_of_all_timesheets_for_employee() {
-        List<Timesheet> timesheet = dao.getTimesheetsByEmployeeId(1);
-        Assert.assertEquals(2, timesheet.size());
-        assertTimesheetsMatch(TIMESHEET_1, timesheet.get(0));
-        assertTimesheetsMatch(TIMESHEET_2, timesheet.get(1));
+        List<Timesheet> timesheets = dao.getTimesheetsByEmployeeId(1);
+        Assert.assertEquals(2, timesheets.size());
+        assertTimesheetsMatch(TIMESHEET_1, timesheets.get(0));
+        assertTimesheetsMatch(TIMESHEET_2, timesheets.get(1));
 
-        timesheet = dao.getTimesheetsByEmployeeId(2);
-        Assert.assertEquals(2, timesheet.size());
-        assertTimesheetsMatch(TIMESHEET_3, timesheet.get(2));
-        assertTimesheetsMatch(TIMESHEET_4, timesheet.get(3));
+        timesheets = dao.getTimesheetsByEmployeeId(2);
+        Assert.assertEquals(2, timesheets.size());
+        assertTimesheetsMatch(TIMESHEET_3, timesheets.get(2));
+        assertTimesheetsMatch(TIMESHEET_4, timesheets.get(3));
 
     }
 
@@ -131,7 +131,7 @@ public class JdbcTimesheetDaoTests extends BaseDaoTests {
         Assert.assertEquals("message",2.5, totalBillable,.001);
 
         totalBillable = dao.getBillableHours(2, 2);
-        Assert.assertEquals("message",0, totalBillable,.001);
+        Assert.assertEquals("message",2.0, totalBillable,.001);
 
 
     }

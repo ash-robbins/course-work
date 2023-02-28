@@ -7,7 +7,7 @@ Expected output:
 Actual output:
 1
 How did you fix this bug?
-
+Add billable value to update
 
 Bug 2
 -----
