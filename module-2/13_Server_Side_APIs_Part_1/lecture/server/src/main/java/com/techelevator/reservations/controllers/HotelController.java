@@ -5,11 +5,12 @@ import com.techelevator.reservations.dao.MemoryHotelDao;
 import com.techelevator.reservations.dao.MemoryReservationDao;
 import com.techelevator.reservations.dao.ReservationDao;
 import com.techelevator.reservations.model.Hotel;
+import com.techelevator.reservations.model.Reservation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@RestController
 public class HotelController {
 
     private HotelDao hotelDao;
@@ -40,5 +41,54 @@ public class HotelController {
     public Hotel get(@PathVariable int id) {
         return hotelDao.get(id);
     }
+    /**
+     *
+     * Returns all reservations in the system
+     * @return all reservations
+     */
 
+    @RequestMapping(path = "/reservations", method = RequestMethod.GET)
+    public List<Reservation> listReservations(){
+        return reservationDao.findAll();
+    }
+
+    /**
+     * Get a reservation by its id
+     *
+     * @param id
+     * @return a single reservation
+     */
+
+    @RequestMapping( path = "/reservation/{id}", method = RequestMethod.GET)
+    public Reservation getReservation(@PathVariable int id){
+        return reservationDao.get(id);
+    }
+
+    /**
+     *
+     * list all reservations by hotel
+     */
+
+    @RequestMapping (path = "/hotels/{id}/reservations", method = RequestMethod.GET)
+    public List<Reservation> listReservationsByHotel (@PathVariable("id") int hotelId){
+        return reservationDao.findByHotel(hotelId);
+    }
+
+    /**
+     *
+     * Create a new reservation for given hotel
+     *
+     * @param reservation
+     */
+
+    @RequestMapping(path = "/reservations", method = RequestMethod.POST)
+    public Reservation addReservation(@RequestBody Reservation reservation) {
+        return reservationDao.create(reservation, reservation.getHotelId());
+    }
+
+    @RequestMapping (path = "/hotels?state={state}&city={city}", method = RequestMethod.GET)
+    public List<Hotel> filterByStateAndCity(@RequestParam String state, @RequestParam String city){
+        return hotelDao.getFilteredList(state, city);
+    }
 }
+
