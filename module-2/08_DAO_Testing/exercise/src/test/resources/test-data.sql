@@ -69,3 +69,8 @@ VALUES (1, 1, '2021-01-01', 1.0, true, 'Timesheet 1'),  -- timesheet_id will be 
        (2, 2, '2021-02-01', 2.0, false, 'Timesheet 4'); -- timesheet_id will be 4 due to serial
 
 COMMIT;
+
+SELECT timesheet_id
+FROM timesheet
+WHERE employee_id = 1
+ORDER BY timesheet_id;
