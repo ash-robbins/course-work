@@ -1,4 +1,4 @@
-# Introduction to HTML and CSS exercise
+ # Introduction to HTML and CSS exercise
 
 In this two-part exercise, you'll create two HTML pages (and related CSS pages):
 
