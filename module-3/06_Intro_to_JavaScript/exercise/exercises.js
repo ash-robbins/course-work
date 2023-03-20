@@ -12,6 +12,13 @@
 			return x + y;
         }
 */
+function sumDouble(x, y) {
+	if (x==y){
+		return (x + y) * 2;
+	} else{
+	return x + y;
+	}
+}
 
 /*
 2. **hasTeen** We'll say that a number is "teen" if it is in the range 13..19 inclusive. 
@@ -21,7 +28,13 @@
 		hasTeen(20, 19, 10) → true
 		hasTeen(20, 10, 13) → true
 */
-
+function hasTeen(x, y, z){
+	if (x >= 13 || y >= 13 || z >= 13){
+		return true;
+	} else {
+		return false;
+	}
+}
 /* 
 3. **lastDigit** Given two non-negative int values, return true if they have the same 
     last digit, such as with 27 and 57.
@@ -30,7 +43,13 @@
 		lastDigit(6, 17) → false
 		lastDigit(3, 113) → true
 */
-
+function lastDigit(x, y){
+	if (y % 10 == x){
+		return true;
+	} else {
+		return false;
+	}
+}
 /*
 4. **seeColor** Given a string, if the string begins with "red" or "blue" return that color 
     string, otherwise return the empty string.
@@ -39,7 +58,18 @@
 		seeColor("xxred") → ""
         seeColor("blueTimes") → "blue"
 */
+function seeColor(word){
+	let color1 = "red";
+	let color2 = "blue";
 
+	if (word.substring(0, 3) == color1){
+		return color1;
+	} else if (word.substring(0, 4) == color2){
+		return color2;
+	} else {
+		return "";
+	}
+}
 /*
 5. **oddOnly** Write a function that given an array of integer of any length, removes
     the even numbers, and returns a new array of just the the odd numbers.
@@ -47,7 +77,14 @@
 		oddOnly([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]) → [1, 3, 5, 7, 9, 11];
 		oddOnly([2, 4, 8, 32, 256]); → []
 */
-
+function oddOnly(array){
+	let newArray = [];
+	for (let i = 0; i < array.length; i++){
+		if (array[i] % 2 != 0){
+			newArray.push(array[i]);
+		}
+	} return newArray;
+}
 /*
 6. **frontAgain** Given a string, return true if the first 2 chars in the string also appear 
     at the end of the string, such as with "edited".
@@ -56,7 +93,13 @@
 		frontAgain("edit") → false
 		frontAgain("ed") → true
 */
-
+function frontAgain(word){
+	if (word.substring(0,2) == word.substring(word.length - 2)){
+		return true;
+	} else {
+		return false;
+	}
+}
 /*
 7. **cigarParty** When squirrels get together for a party, they like to have cigars. 
 A squirrel party is successful when the number of cigars is between 40 and 60, inclusive. 
@@ -68,7 +111,19 @@ or false otherwise.
 		cigarParty(50, false) → true
 		cigarParty(70, true) → true
 */
-
+function cigarParty(cigars, weekend){
+	if (cigars > 40 && weekend == true){
+		return true;
+	} else if (40 < cigars < 60 && weekend == false){
+		return true;
+	} else if (cigars > 60 && weekend == true ){
+		return true;
+	} else if (cigars < 40 && weekend == false){
+		return false;
+	} else if (cigars > 60 && weekend == false){
+		return false;
+	}
+}
 /*
 8. **fizzBuzz** Given a number, return a value according to the following rules:
 If the number is multiple of 3, return "Fizz."
@@ -82,6 +137,17 @@ In all other cases return the original number.
 	fizzBuzz(15) → "FizzBuzz"
 	fizzBuzz(8) → 8
 */
+function fizzBuzz(value){
+	let result = value;
+
+	if (value % 3 == 0 && value % 5 == 0){
+		result = "FizzBuzz";
+	} else if (value % 5 == 0) {
+		result = "Buzz";
+	} else if (value % 3 == 0) {
+		result = "Fizz"
+	} return result;
+}
 
 /*
 9. **filterEvens** Write a function that filters an array to only include even numbers.
@@ -91,7 +157,13 @@ In all other cases return the original number.
 	filterEvens([2, 4, 6]) → [2, 4, 6]
 	filterEvens([100, 8, 21, 24, 62, 9, 7]) → [100, 8, 24, 62]
 */
-
+function filterEvens(array){
+	for (let i = 0; i < array.length; i++){
+		if (array[i] % 2 != 0){
+			array.pop();
+		}
+	} return array;
+}
 /*
 10. **filterBigNumbers** Write a function that filters numbers greater than or equal to 100.
 
@@ -99,7 +171,14 @@ In all other cases return the original number.
 	filterBigNumbers([3, 2, 7, 1, -100, -120]) → []
 	filterBigNumbers([]) → []
 */
-
+function filterBigNumbers(array){
+	let newArray = [];
+	for (let i = 0; i < array.length; i++){
+		if (array[i] <= 100){
+			newArray.push(array[i])
+		}
+	} return newArray;
+}
 /*
 11. **filterMultiplesOfX** Write a function to filter numbers that are a multiple of a 
 parameter, `x` passed in.
