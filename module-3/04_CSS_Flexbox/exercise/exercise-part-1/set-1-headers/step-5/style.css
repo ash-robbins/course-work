@@ -1,3 +1,21 @@
+.spacer {
+  flex-grow: 2;
+}
+
+nav {
+  flex-grow: 1;
+}
+
+header {
+  display: flex;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+  justify-content: flex-start;
+}
+
 body {
   margin: 20px;
   padding: 0
