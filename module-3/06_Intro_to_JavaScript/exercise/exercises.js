@@ -112,16 +112,14 @@ or false otherwise.
 		cigarParty(70, true) → true
 */
 function cigarParty(cigars, weekend){
-	if (cigars > 40 && weekend == true){
-		return true;
-	} else if (40 < cigars < 60 && weekend == false){
-		return true;
-	} else if (cigars > 60 && weekend == true ){
-		return true;
-	} else if (cigars < 40 && weekend == false){
+	if (cigars < 40) {
 		return false;
-	} else if (cigars > 60 && weekend == false){
+	} else if (cigars > 60 && weekend == false) {
 		return false;
+	} else if (40 < cigars < 60 && weekend == false ) {
+		return true;
+	} else if (cigars > 60 && weekend == true) {
+		return true;
 	}
 }
 /*
@@ -157,12 +155,12 @@ function fizzBuzz(value){
 	filterEvens([2, 4, 6]) → [2, 4, 6]
 	filterEvens([100, 8, 21, 24, 62, 9, 7]) → [100, 8, 24, 62]
 */
-function filterEvens(array){
-	for (let i = 0; i < array.length; i++){
-		if (array[i] % 2 != 0){
-			array.pop();
-		}
-	} return array;
+function filterEvens (array){
+	const theArray = array;
+	const filteredArray = theArray.filter( (number) => {
+		return number % 2 === 0;
+		return filteredArray;
+	}) 
 }
 /*
 10. **filterBigNumbers** Write a function that filters numbers greater than or equal to 100.
