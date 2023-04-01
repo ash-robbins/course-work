@@ -15,6 +15,7 @@ document.getElementById('title').innerText = pageTitle;
 function displayGroceries() {
   for (let i = 0; i < groceries.length; i++){
     const groceryItem = document.createElement('li');
+    groceryItem.classList.add('item');
     groceryItem.innerText = groceries[i];
     const groceryList = document.getElementById('groceries');
     groceryList.appendChild(groceryItem);
@@ -27,7 +28,13 @@ function displayGroceries() {
  * This function will be called when the button is clicked. You will need to get a reference
  * to every list item and add the class completed to each one
  */
-function markCompleted() {}
+function markCompleted() {
+  const groceryListItems = document.querySelectorAll('.item');
+
+  for(let i = 0; i < groceryListItems.length; i++){
+  groceryListItems[i].classList.add('completed');
+  }
+}
 
 setPageTitle();
 
