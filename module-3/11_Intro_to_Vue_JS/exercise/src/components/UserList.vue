@@ -11,19 +11,25 @@
     </thead>
     <tbody>
       <tr>
-        <td><input type="text" id="firstNameFilter"/></td>
-        <td><input type="text" id="lastNameFilter"/></td>
-        <td><input type="text" id="usernameFilter"/></td>
-        <td><input type="text" id="emailFilter"/></td>
+        <td><input type="text" id="firstNameFilter" v-model="search.firstName"/></td>
+        <td><input type="text" id="lastNameFilter" v-model="search.lastName"/></td>
+        <td><input type="text" id="usernameFilter" v-model="search.username"/></td>
+        <td><input type="text" id="emailFilter" v-model="search.emailAddress"/></td>
         <td>
-          <select id="statusFilter">
+          <select id="statusFilter" v-model="search.status">
             <option value="">Show All</option>
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>
         </td>
       </tr>
-      <!-- user listing goes here -->
+      <tr v-for= "(user, index) in users" v-bind:key="index" v-bind:class="{ 'inactive': user.status == 'Inactive' }">
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{user.username}}</td>
+        <td>{{user.emailAddress}}</td>
+        <td>{{user.status}}</td>
+        </tr>
     </tbody>
   </table>
 </template>
@@ -40,7 +46,32 @@ export default {
         { firstName: 'Ben', lastName: 'Carter', username: 'bcarter', emailAddress: 'bcarter@gmail.com', status: 'Active' },
         { firstName: 'Katie', lastName: 'Jackson', username: 'kjackson', emailAddress: 'kjackson@yahoo.com', status: 'Active' },
         { firstName: 'Mark', lastName: 'Smith', username: 'msmith', emailAddress: 'msmith@foo.com', status: 'Inactive' }
-      ]
+      ],
+      search: {
+        firstName:'',
+        lastName: '',
+        username: '',
+        emailAddress: '',
+        status: ''
+      }
+    }
+  },
+  computed: {
+    filteredList() {
+      const search = this.search
+      const firstName = search.firstName.toLowerCase()
+      const lastName = search.lastName.toLowerCase()
+      const username = search.username.toLowerCase()
+      const emailAddress = search.emailAddress.toLowerCase()
+      const status = search.status.toLowerCase()
+      
+      return this.users.filter((user) => {
+        return user.firstName.toLowerCase().includes(firstName) &&
+          user.lastName.toLowerCase().includes(lastName) &&
+          user.username.toLowerCase().includes(username) &&
+          user.emailAddress.toLowerCase().includes(emailAddress) &&
+          (status === '' || user.status.toLowerCase() === status)
+      })
     }
   }
 }
