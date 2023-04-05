@@ -2,10 +2,12 @@
   <div id="app">
     <h1>Reading List</h1>
     <reading-list />
+    <new-book-form />
   </div>
 </template>
 
 <script>
+
 import ReadingList from './components/ReadingList.vue';
 
 export default {
