@@ -15,10 +15,19 @@
       <tbody>
         <tr>
           <td>
-            <input type="checkbox" id="selectAll" />
+            <input
+              type="checkbox"
+              id="selectAll"
+              v-model="selectAll"
+              @change="selectAllHandler"
+            />
           </td>
           <td>
-            <input type="text" id="firstNameFilter" v-model="filter.firstName" />
+            <input
+              type="text"
+              id="firstNameFilter"
+              v-model="filter.firstName"
+            />
           </td>
           <td>
             <input type="text" id="lastNameFilter" v-model="filter.lastName" />
@@ -31,7 +40,7 @@
           </td>
           <td>
             <select id="statusFilter" v-model="filter.status">
-              <option value>Show All</option>
+              <option value="">Show All</option>
               <option value="Active">Active</option>
               <option value="Inactive">Inactive</option>
             </select>
@@ -44,7 +53,12 @@
           v-bind:class="{ deactivated: user.status === 'Inactive' }"
         >
           <td>
-            <input type="checkbox" v-bind:id="user.id" v-bind:value="user.id" />
+            <input
+              type="checkbox"
+              v-bind:id="user.id"
+              v-bind:value="user.id"
+              v-model="selectedIds"
+            />
           </td>
           <td>{{ user.firstName }}</td>
           <td>{{ user.lastName }}</td>
@@ -52,42 +66,60 @@
           <td>{{ user.emailAddress }}</td>
           <td>{{ user.status }}</td>
           <td>
-            <button class="btnActivateDeactivate">Activate or Deactivate</button>
+            <button
+              class="btnActivateDeactivate"
+              @click="toggleStatus(user.id)"
+            >
+              {{ user.status === "Active" ? "Deactivate" : "Activate" }}
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
-
     <div class="all-actions">
-      <button>Activate Users</button>
-      <button>Deactivate Users</button>
-      <button>Delete Users</button>
+      <button :disabled="selectedIds.length === 0" @click="activateUsers">
+        Activate Users
+      </button>
+      <button :disabled="selectedIds.length === 0" @click="deactivateUsers">
+        Deactivate Users
+      </button>
+      <button :disabled="selectedIds.length === 0" @click="deleteUsers">
+        Delete Users
+      </button>
     </div>
+    <button @click="showForm = !showForm">Add New User</button>
+   
 
-    <button>Add New User</button>
 
-    <form id="frmAddNewUser">
+   
+     <a id="show-form-button" href="#" v-on:click.prevent="showForm = true" v-if="showForm === false">
+      Show Form
+    </a>
+    <form id="frmAddNewUser" v-on:submit.prevent="addUser" autocomplete="off" v-show="showForm === true">
+   
       <div class="field">
         <label for="firstName">First Name:</label>
-        <input type="text" name="firstName" />
+        <input type="text" name="firstName" v-model="newUser.firstName" />
       </div>
       <div class="field">
         <label for="lastName">Last Name:</label>
-        <input type="text" name="lastName" />
+        <input type="text" name="lastName" v-model="newUser.lastName" />
       </div>
       <div class="field">
         <label for="username">Username:</label>
-        <input type="text" name="username" />
+        <input type="text" name="username" v-model="newUser.username" />
       </div>
       <div class="field">
         <label for="emailAddress">Email Address:</label>
-        <input type="text" name="emailAddress" />
+        <input type="text" name="emailAddress" v-model="newUser.emailAddress" />
       </div>
+     
+
+
       <button type="submit" class="btn save">Save User</button>
     </form>
   </div>
 </template>
-
 <script>
 export default {
   name: "user-list",
@@ -98,7 +130,7 @@ export default {
         lastName: "",
         username: "",
         emailAddress: "",
-        status: ""
+        status: "",
       },
       nextUserId: 7,
       newUser: {
@@ -107,7 +139,7 @@ export default {
         lastName: "",
         username: "",
         emailAddress: "",
-        status: "Active"
+        status: "Active",
       },
       users: [
         {
@@ -116,7 +148,7 @@ export default {
           lastName: "Smith",
           username: "jsmith",
           emailAddress: "jsmith@gmail.com",
-          status: "Active"
+          status: "Active",
         },
         {
           id: 2,
@@ -124,7 +156,7 @@ export default {
           lastName: "Bell",
           username: "abell",
           emailAddress: "abell@yahoo.com",
-          status: "Active"
+          status: "Active",
         },
         {
           id: 3,
@@ -132,7 +164,7 @@ export default {
           lastName: "Best",
           username: "gbest",
           emailAddress: "gbest@gmail.com",
-          status: "Inactive"
+          status: "Inactive",
         },
         {
           id: 4,
@@ -140,7 +172,7 @@ export default {
           lastName: "Carter",
           username: "bcarter",
           emailAddress: "bcarter@gmail.com",
-          status: "Active"
+          status: "Active",
         },
         {
           id: 5,
@@ -148,7 +180,7 @@ export default {
           lastName: "Jackson",
           username: "kjackson",
           emailAddress: "kjackson@yahoo.com",
-          status: "Active"
+          status: "Active",
         },
         {
           id: 6,
@@ -156,16 +188,65 @@ export default {
           lastName: "Smith",
           username: "msmith",
           emailAddress: "msmith@foo.com",
-          status: "Inactive"
-        }
-      ]
+          status: "Inactive",
+        },
+      ],
+      selectedIds: [],
+      showForm: false,
     };
   },
+
+
+ 
   methods: {
     getNextUserId() {
       return this.nextUserId++;
-    }
+    },
+    toggleStatus(id) {
+      const user = this.users.find((user) => user.id === id);
+      user.status = user.status === "Active" ? "Inactive" : "Active";
+    },
+    activateUsers() {
+      this.selectedIds.forEach((id) => {
+        const user = this.users.find((user) => user.id === id);
+        user.status = "Active";
+      });
+      this.selectedIds = [];
+    },
+    deactivateUsers() {
+      this.selectedIds.forEach((id) => {
+        const user = this.users.find((user) => user.id === id);
+        user.status = "Inactive";
+      });
+      this.selectedIds = [];
+    },
+    deleteUsers() {
+      this.selectedIds.forEach((id) => {
+        const index = this.users.findIndex((user) => user.id === id);
+        this.users.splice(index, 1);
+      });
+      this.selectedIds = [];
+    },
+    addUser() {
+      this.newUser.id = this.getNextUserId();
+      this.users.push(this.newUser);
+      this.newUser = {
+        id: null,
+        firstName: "",
+        lastName: "",
+        username: "",
+        emailAddress: "",
+        status: "Active",
+      };
+      this.showForm = false;
+    },
+ 
+     toggleUserStatus(id) {
+    const user = this.users.find(user => user.id === id);
+    user.status = user.status === 'Active' ? 'Inactive' : 'Active';
+  }
   },
+ 
   computed: {
     filteredList() {
       let filteredUsers = this.users;
@@ -198,16 +279,33 @@ export default {
         );
       }
       if (this.filter.status != "") {
-        filteredUsers = filteredUsers.filter((user) =>
-          user.status === this.filter.status
+        filteredUsers = filteredUsers.filter(
+          (user) => user.status === this.filter.status
         );
       }
       return filteredUsers;
-    }
-  }
+    },
+    selectAll: {
+      get() {
+        return this.selectedIds.length === this.filteredList.length;
+      },
+      set(value) {
+        if (value) {
+          this.selectedIds = this.filteredList.map((user) => user.id);
+        } else {
+          this.selectedIds = [];
+        }
+      },
+    },
+    isAnySelected() {
+      return this.selectedIds.length > 0;
+    },
+    isAllSelected() {
+      return this.selectedIds.length === this.filteredList.length;
+    },
+  },
 };
 </script>
-
 <style scoped>
 table {
   margin-top: 20px;
@@ -228,7 +326,6 @@ input,
 select {
   font-size: 16px;
 }
-
 form {
   margin: 20px;
   width: 350px;

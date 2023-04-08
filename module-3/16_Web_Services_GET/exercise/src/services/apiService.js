@@ -5,12 +5,15 @@ const http = axios.create({
 });
 
 export default {
-    getTopic() {
-        return http.get('/');
+    getTopic(topicID) {
+        return http.get('/topics').then( (response) => {
+            const topics = response.data.topics;
+            return topics.find(topic => topic.id == topicID);
+        });
     },
 
     getTopics() {
-        return http.get('/');
+        return http.get('/topics');
     }, 
 
     getTopicsDetails(topicID) {

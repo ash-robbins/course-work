@@ -10,7 +10,7 @@
 
 <script>
 
-import apiService from '../services/apiService.js';
+import apiService from '../services/apiService';
 
 export default {
   name: 'topic-list',
